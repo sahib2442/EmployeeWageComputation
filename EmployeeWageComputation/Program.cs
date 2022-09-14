@@ -5,8 +5,8 @@ namespace EmployeeWageComputation
     {
         static void main(string[]args)
         {
-            EmployeeWageComputation a = new EmployeeWageComputation();
-            a.totalworkhours();
+            EmployeeWage a = new EmployeeWage();
+            a.MonthlyWage();
         }
     }
 }
