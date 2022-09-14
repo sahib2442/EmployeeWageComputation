@@ -4,22 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeWageApp;
+namespace EmployeeWageComputation;
 
 internal class EmployeeWage
-{ 
-    const int IS_FULL_TIME = 1, IS_PART_TIME = 0,IS_PRESENT = 1,IS_ABSENT = 0,RATE_PER_HOUR = 20,WORKING_DAYS_PER_MONTH = 20;
-    int totalDaysWorked;
-    int monthlyWage;
-    int totalHoursWorked;
-    static Random random = new Random();
+{
+    const int IS_FULL_TIME = 1,IS_PART_TIME = 0,IS_PRESENT = 1,IS_ABSENT = 0;
+    private readonly int RATE_PER_HOUR = 20;
+    private readonly int WORKING_DAYS_PER_MONTH = 20;
+    private readonly int HOURS_PER_MONTH = 100;
+    private int totalDaysWorked;
+    private int monthlyWage;
+    private int totalHoursWorked;
+    private static Random random = new Random();
     public EmployeeWage()
     {
         totalDaysWorked = 0;
         monthlyWage = 0;
         totalHoursWorked = 0;
     }
-    public void Reset()
+    public EmployeeWage(int ratePerHour, int maxWorkingDays, int maxHoursPerMonth)
+    {
+        RATE_PER_HOUR = ratePerHour;
+        WORKING_DAYS_PER_MONTH = maxWorkingDays;
+        HOURS_PER_MONTH = maxHoursPerMonth;
+    }
+    private void Reset()
     {
         totalDaysWorked = 0;
         monthlyWage = 0;
@@ -54,7 +63,7 @@ internal class EmployeeWage
         dailyWage = dailyHours * RATE_PER_HOUR;
         return dailyWage;
     }
-    public void MonthlyWage()
+    private void CalculateMonthlyWage()
     {
         for (int i = 0; i < WORKING_DAYS_PER_MONTH; i++)
             totalDaysWorked += GetAttendance();
@@ -63,10 +72,10 @@ internal class EmployeeWage
     }
     public void MeetWageCondition()
     {
-        while (totalDaysWorked != 20 && totalHoursWorked < 100)
+        while (totalDaysWorked != WORKING_DAYS_PER_MONTH && totalHoursWorked < HOURS_PER_MONTH)
         {
             Reset();
-            MonthlyWage();
+            CalculateMonthlyWage();
         }
     }
     public void Display()
