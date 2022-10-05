@@ -99,5 +99,3 @@ public class EmployeeWage
         return $"Total Wage: {TotalWage}; Daily Wage: {DailWage}";
     }
 }
-
-
